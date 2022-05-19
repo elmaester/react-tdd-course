@@ -1,5 +1,6 @@
 import SignUpPage from "./SignUpPage";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 describe("Sign Up Page", () => {
   describe("Layout", () => {
@@ -11,37 +12,37 @@ describe("Sign Up Page", () => {
 
     it("has username input", () => {
       render(<SignUpPage />);
-      const usernameInput = screen.getByLabelText("Username")
+      const usernameInput = screen.getByLabelText("Username");
       expect(usernameInput).toBeInTheDocument();
     });
 
     it("has email input", () => {
       render(<SignUpPage />);
-      const emailInput = screen.getByLabelText("Email")
+      const emailInput = screen.getByLabelText("Email");
       expect(emailInput).toBeInTheDocument();
     });
 
     it("has password input", () => {
       render(<SignUpPage />);
-      const passwordInput = screen.getByLabelText("Password")
+      const passwordInput = screen.getByLabelText("Password");
       expect(passwordInput).toBeInTheDocument();
     });
 
     it("has password type for password input", () => {
       render(<SignUpPage />);
-      const passwordInput = screen.getByLabelText("Password")
+      const passwordInput = screen.getByLabelText("Password");
       expect(passwordInput.type).toBe("password");
     });
 
     it("has repeat password input", () => {
       render(<SignUpPage />);
-      const passwordInput = screen.getByLabelText("Repeat password")
+      const passwordInput = screen.getByLabelText("Repeat password");
       expect(passwordInput).toBeInTheDocument();
     });
 
     it("has password type for repeat password input", () => {
       render(<SignUpPage />);
-      const passwordInput = screen.getByLabelText("Repeat password")
+      const passwordInput = screen.getByLabelText("Repeat password");
       expect(passwordInput.type).toBe("password");
     });
 
@@ -55,6 +56,17 @@ describe("Sign Up Page", () => {
       render(<SignUpPage />);
       const button = screen.queryByRole("button", { name: "Sign Up" });
       expect(button).toBeDisabled();
+    });
+  });
+  describe("Interactions", () => {
+    it("enables the submit button when password fields have the same value and sufficient length", () => {
+      render(<SignUpPage />);
+      const passwordInput = screen.getByLabelText("Repeat password");
+      const repeatPasswordInput = screen.getByLabelText("Password");
+      userEvent.type(passwordInput, "P4ssword");
+      userEvent.type(repeatPasswordInput, "P4ssword");
+      const button = screen.queryByRole("button", { name: "Sign Up" });
+      expect(button).toBeEnabled();
     });
   });
 });

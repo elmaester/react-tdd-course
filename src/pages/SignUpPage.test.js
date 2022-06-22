@@ -61,8 +61,8 @@ describe("Sign Up Page", () => {
   describe("Interactions", () => {
     it("enables the submit button when password fields have the same value and sufficient length", () => {
       render(<SignUpPage />);
-      const passwordInput = screen.getByLabelText("Repeat password");
-      const repeatPasswordInput = screen.getByLabelText("Password");
+      const passwordInput = screen.getByLabelText("Password");
+      const repeatPasswordInput = screen.getByLabelText("Repeat password");
       userEvent.type(passwordInput, "P4ssword");
       userEvent.type(repeatPasswordInput, "P4ssword");
       const button = screen.queryByRole("button", { name: "Sign Up" });
